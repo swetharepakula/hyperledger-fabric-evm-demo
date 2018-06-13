@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
 import { Link } from "react-router-dom";
 import * as dapp from "./dapp";
-import arrow from "./assets/images/arrow-left.svg";
-import diagram from "./assets/images/diagram.png";
 import "./results.css";
 
 class Results extends Component {
@@ -26,35 +24,21 @@ class Results extends Component {
         var valA = parseInt(optionA.substring(optionA.indexOf(',') + 1), 10);
         var optionB = myContract.proposals(1).toString();
         var valB = parseInt(optionB.substring(optionB.indexOf(',') + 1), 10);
-        var optionC = myContract.proposals(2).toString();
-        var valC = parseInt(optionC.substring(optionC.indexOf(',') + 1), 10);
-        var optionD = myContract.proposals(3).toString();
-        var valD = parseInt(optionD.substring(optionC.indexOf(',') + 1), 10);
 
-        var tot = valA + valB + valC + valD;
+        var tot = valA + valB;
         var perA = (valA / tot) * 100;
         var perB = (valB / tot) * 100;
-        var perC = (valC / tot) * 100;
-        var perD = (valD / tot) * 100;
 
         console.log(valA);
         console.log(valB);
-        console.log(valC);
-        console.log(valD);
         console.log(perA);
         console.log(perB);
-        console.log(perC);
-        console.log(perD);
 
         this.setState({
             valA: valA,
             valB: valB,
-            valC: valC,
-            valD: valD,
             perA: perA,
             perB: perB,
-            perC: perC,
-            perD: perD,
             loading: false
         });
     }
@@ -63,9 +47,6 @@ class Results extends Component {
     render() {
         return <div className="results__container">
             <div>
-              <Link to="/vote" className="arrow__container">
-                <img src={arrow} alt="Arrow icon" className="back__arrow" />
-              </Link>
               <h1>Results</h1>
               <p>
                 How interested are you in having a robust permissioned blockchain
@@ -89,40 +70,10 @@ class Results extends Component {
                       </p>
                     </div>
                   </div>
-                  <div className="results__item--container">
-                    <p className="resultCategory">Very, tell me more!</p>
-                    <div id="optc" className="votebar" style={{ width: `${this.state.perC}%` }}>
-                      <p className="resultValue" id="resultC">
-                        {this.state.valC !== 0 && this.state.valC}
-                      </p>
-                    </div>
-                  </div>
-                  <div className="results__item--container">
-                    <p className="resultCategory">Must have now!</p>
-                    <div id="optd" className="votebar" style={{ width: `${this.state.perD}%` }}>
-                      <p className="resultValue" id="resultD">
-                        {this.state.valD !== 0 && this.state.valD}
-                      </p>
-                    </div>
-                  </div>
-                  <Link to="/vote" className="duo__btn finish__link">
+                  <Link to="/" className="duo__btn finish__link">
                     Restart
                   </Link>
-                  <Link to="https://developer.ibm.com/code/2018/05/11/two-enter-one-leaves/">
-                    Learn all about it here.
-                  </Link>
                 </div> : "Loading"}
-            </div>
-            <div className="side__panel--container">
-              <h1>HyperLedger Fabric with EVM Architecture</h1>
-              <img src={diagram} alt="" className="diagram__image" />
-              <p>
-                A Web3-based client interacts with our Web3->Hyperledger
-                Fabric SDK proxy server to send/receive API calls to the
-                Fabric network components enabling Ethereum developers
-                to interact with Hyperledger Fabric just as they would
-                with Ethereum.
-              </p>
             </div>
           </div>;
     }
